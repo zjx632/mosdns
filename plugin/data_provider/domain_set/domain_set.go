@@ -112,7 +112,7 @@ func LoadFiles(fs []string, m *domain.MixMatcher[struct{}]) error {
 
 func LoadFile(f string, m *domain.MixMatcher[struct{}]) error {
 	if len(f) > 0 {
-		abspath, err := filepath.Abs(f)
+		abspath, _ := filepath.Abs(f)
 		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return err

@@ -77,7 +77,7 @@ func NewRedirect(args *Args) (*Redirect, error) {
 		}
 	}
 	for i, file := range args.Files {
-		abspath, err := filepath.Abs(file)
+		abspath, _ := filepath.Abs(file)
 		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return nil, fmt.Errorf("failed to read file #%d %s, %w", i, file, err)

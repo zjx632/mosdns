@@ -121,7 +121,7 @@ func LoadFromFiles(fs []string, l *netlist.List) error {
 
 func LoadFromFile(f string, l *netlist.List) error {
 	if len(f) > 0 {
-		abspath, err := filepath.Abs(f)
+		abspath, _ := filepath.Abs(f)
 		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return err

@@ -31,6 +31,7 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+	"path/filepath"
 
 	"github.com/IrineSistiana/mosdns/v5/coremain"
 	"github.com/IrineSistiana/mosdns/v5/pkg/cache"
@@ -168,6 +169,10 @@ func NewCache(args *Args, opts Opts) *Cache {
 			return float64(backend.Len())
 		}),
 	}
+
+	abspath, _ := filepath.Abs(p.args.DumpFile)
+
+	p.args.DumpFile = abspath
 
 	if err := p.loadDump(); err != nil {
 		p.logger.Error("failed to load cache dump", zap.Error(err))

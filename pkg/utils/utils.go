@@ -38,7 +38,7 @@ import (
 func LoadCertPool(certs []string) (*x509.CertPool, error) {
 	rootCAs := x509.NewCertPool()
 	for _, cert := range certs {
-		abspath, err := filepath.Abs(cert)
+		abspath, _ := filepath.Abs(cert)
 		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return nil, err
