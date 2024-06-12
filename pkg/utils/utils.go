@@ -31,13 +31,15 @@ import (
 	"math/big"
 	"os"
 	"time"
+	"path/filepath"
 )
 
 // LoadCertPool reads and loads certificates in certs.
 func LoadCertPool(certs []string) (*x509.CertPool, error) {
 	rootCAs := x509.NewCertPool()
 	for _, cert := range certs {
-		b, err := os.ReadFile(cert)
+		abspath, err := filepath.Abs(cert)
+		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return nil, err
 		}

@@ -26,6 +26,7 @@ import (
 	"github.com/IrineSistiana/mosdns/v5/pkg/matcher/domain"
 	"github.com/IrineSistiana/mosdns/v5/plugin/data_provider"
 	"os"
+	"path/filepath"
 )
 
 const PluginType = "domain_set"
@@ -111,7 +112,8 @@ func LoadFiles(fs []string, m *domain.MixMatcher[struct{}]) error {
 
 func LoadFile(f string, m *domain.MixMatcher[struct{}]) error {
 	if len(f) > 0 {
-		b, err := os.ReadFile(f)
+		abspath, err := filepath.Abs(f)
+		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return err
 		}

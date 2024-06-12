@@ -29,6 +29,7 @@ import (
 	"github.com/IrineSistiana/mosdns/v5/plugin/executable/sequence"
 	"os"
 	"strings"
+	"path/filepath"
 )
 
 const PluginType = "arbitrary"
@@ -56,7 +57,8 @@ func NewArbitrary(args *Args) (*Arbitrary, error) {
 		}
 	}
 	for i, file := range args.Files {
-		b, err := os.ReadFile(file)
+		abspath, err := filepath.Abs(file)
+		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return nil, fmt.Errorf("failed to read file #%d [%s], %w", i, file, err)
 		}

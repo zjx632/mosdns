@@ -25,6 +25,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"path/filepath"
 
 	"github.com/IrineSistiana/mosdns/v5/coremain"
 	"github.com/IrineSistiana/mosdns/v5/pkg/matcher/domain"
@@ -76,7 +77,8 @@ func NewRedirect(args *Args) (*Redirect, error) {
 		}
 	}
 	for i, file := range args.Files {
-		b, err := os.ReadFile(file)
+		abspath, err := filepath.Abs(file)
+		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return nil, fmt.Errorf("failed to read file #%d %s, %w", i, file, err)
 		}

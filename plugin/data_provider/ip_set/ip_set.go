@@ -28,6 +28,7 @@ import (
 	"net/netip"
 	"os"
 	"strings"
+	"path/filepath"
 )
 
 const PluginType = "ip_set"
@@ -120,7 +121,8 @@ func LoadFromFiles(fs []string, l *netlist.List) error {
 
 func LoadFromFile(f string, l *netlist.List) error {
 	if len(f) > 0 {
-		b, err := os.ReadFile(f)
+		abspath, err := filepath.Abs(f)
+		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return err
 		}

@@ -30,6 +30,7 @@ import (
 	"github.com/IrineSistiana/mosdns/v5/plugin/executable/sequence"
 	"github.com/miekg/dns"
 	"os"
+	"path/filepath"
 )
 
 const PluginType = "hosts"
@@ -62,7 +63,8 @@ func NewHosts(args *Args) (*Hosts, error) {
 		}
 	}
 	for i, file := range args.Files {
-		b, err := os.ReadFile(file)
+		abspath, err := filepath.Abs(file)
+		b, err := os.ReadFile(abspath)
 		if err != nil {
 			return nil, fmt.Errorf("failed to read file #%d %s, %w", i, file, err)
 		}
